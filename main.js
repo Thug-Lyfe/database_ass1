@@ -39,8 +39,8 @@ function db_save_binary() {
 }
 
 function db_import_binary() {
-   var temp;
-    binaryArr = fs.readFileSync(db,"utf8").toString().split(" ");
+    var temp;
+    binaryArr = fs.readFileSync(db, "utf8").toString().split(" ");
     var binaryCode = [];
     var output = "";
     for (i = 0; i < binaryArr.length; i++) {
@@ -50,7 +50,7 @@ function db_import_binary() {
     if (binaryArr.length > 1) {
         map = new Map()
         var temp = JSON.parse(output)
-        Object.keys(temp).forEach(function(k){
+        Object.keys(temp).forEach(function (k) {
             map[k] = temp[k]
         });
     }
@@ -58,13 +58,14 @@ function db_import_binary() {
 }
 
 
-
+var new_key = "key" + Math.floor(Math.random() * 1000)
 
 console.log("current map:    ", JSON.stringify(map));
-console.log("save data:      ", db_write("key1", "map yo"));
-console.log("read by key:    ", db_read("key1"));
 console.log("imported map:   ", db_import_binary());
-console.log("read by key:    ", db_read("key3"));
+console.log("save data:      ", db_write(new_key, "lots of data"));
+console.log("save data:      ", db_write(new_key + "2", "lots of other data"));
+console.log("read by key:    ", db_read(new_key));
+console.log("read by key:    ", db_read(new_key + "3"));
 console.log("read by index:  ", db_read_index(1));
-console.log("read by index:  ", db_read_index(2));
+console.log("read by index:  ", db_read_index(map.size + 5));
 console.log("save to binary: ", db_save_binary());
