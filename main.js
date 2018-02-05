@@ -25,7 +25,7 @@ function db_read(key, callback) {
                 callback({ key: key, offset: map[key], data: buffer.toString('utf8').slice(0, -1) });
             });
         });
-    }else{callback("invalid map key: " + key)}
+    } else { callback("invalid map key: " + key) }
 }
 
 function db_read_index(index, callback) {
@@ -85,21 +85,21 @@ function db_import_binary() {
 }
 
 let new_key = "key" + Math.floor(Math.random() * 1000)
-console.log("imported map:   ",db_import_binary() ,"\n------------------------------------------------------------");
+console.log("imported map:   ", db_import_binary(), "\n------------------------------------------------------------");
 console.log("save data:      ", db_write(new_key, '{"stuff":"lots of data"}'));
 console.log("save data:      ", db_write(new_key + "2", '{"stuff":"lots of other data"}'));
-console.log("current map:    ", JSON.stringify(map),"\n------------------------------------------------------------");
+console.log("current map:    ", JSON.stringify(map), "\n------------------------------------------------------------");
 db_read(new_key + 3, (data) => {
     console.log("read wrong key name:    ", data);
 })
 db_read_index(Object.keys(map).length + 2, (data) => {
     console.log("read wrong key index:    ", data);
-    
+
 })
 db_read(new_key, (data) => {
     console.log("read correct key name:    ", data);
 })
 db_read_index(0, (data) => {
-    console.log("read correct key index:    ", data,"\n------------------------------------------------------------");
+    console.log("read correct key index:    ", data, "\n------------------------------------------------------------");
     console.log("save to binary: ", db_save_binary());
 })
